@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random  # Import random module
 
 app = Flask(__name__)
-app.secret_key = 'freedomwall123'  # Replace with a real secret key
+app.secret_key = 'your_secret_key'  # Replace with a real secret key
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -27,6 +27,20 @@ def load_user(user_id):
     return None
 
 @app.route('/')
+def public():
+    conn = sqlite3.connect('freedom_wall.db')
+    cur = conn.cursor()
+    cur.execute('SELECT posts.id, users.username, posts.content FROM posts JOIN users ON posts.user_id = users.id')
+    posts = cur.fetchall()
+    conn.close()
+    
+    # Shuffle the posts to randomize their order
+    random.shuffle(posts)
+    
+    return render_template('public.html', posts=posts)
+
+
+@app.route('/home')
 @login_required
 def home():
     conn = sqlite3.connect('freedom_wall.db')
@@ -85,7 +99,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('public'))
 
 @app.route('/post', methods=['POST'])
 @login_required
