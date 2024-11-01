@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedom Wall</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        /* Post Form Styles */
+        .post-form {
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 1em;
+        }
+
+        .post-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .post-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Post List Styles */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: left;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .username {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            color: #333;
+            font-size: 1em;
+        }
+
+        .delete-btn {
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+            text-decoration: none;
+            float: right;
+        }
+
+        .delete-btn:hover{
+            background-color: #b30000;
+        }
+
+        .success { color: green; }
+        .error { color: red; }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: move 5s linear infinite;
+        }
+
+        /* Generate multiple particles with different sizes and positions */
+        .particle:nth-child(1) { width: 8px; height: 8px; background: rgba(0, 0, 0, 0.6); top: 10%; left: 10%; animation-duration: 4s; }
+        .particle:nth-child(2) { width: 12px; height: 12px; background: rgba(0, 0, 0, 0.5); top: 30%; left: 20%; animation-duration: 5s; }
+        .particle:nth-child(3) { width: 6px; height: 6px; background: rgba(0, 0, 0, 0.7); top: 50%; left: 40%; animation-duration: 6s; }
+        .particle:nth-child(4) { width: 10px; height: 10px; background: rgba(0, 0, 0, 0.4); top: 70%; left: 30%; animation-duration: 7s; }
+        .particle:nth-child(5) { width: 15px; height: 15px; background: rgba(0, 0, 0, 0.6); top: 20%; left: 80%; animation-duration: 3s; }
+        .particle:nth-child(6) { width: 5px; height: 5px; background: rgba(0, 0, 0, 0.8); top: 80%; left: 10%; animation-duration: 9s; }
+        .particle:nth-child(7) { width: 20px; height: 20px; background: rgba(0, 0, 0, 0.3); top: 40%; left: 70%; animation-duration: 4.5s; }
+        .particle:nth-child(8) { width: 14px; height: 14px; background: rgba(0, 0, 0, 0.6); top: 60%; left: 20%; animation-duration: 5.5s; }
+        .particle:nth-child(9) { width: 10px; height: 10px; background: rgba(0, 0, 0, 0.5); top: 90%; left: 50%; animation-duration: 6.5s; }
+        .particle:nth-child(10) { width: 7px; height: 7px; background: rgba(0, 0, 0, 0.7); top: 30%; left: 90%; animation-duration: 8s; }
+        .particle:nth-child(11) { width: 12px; height: 12px; background: rgba(0, 0, 0, 0.4); top: 10%; left: 60%; animation-duration: 5s; }
+        .particle:nth-child(12) { width: 16px; height: 16px; background: rgba(0, 0, 0, 0.5); top: 50%; left: 80%; animation-duration: 6s; }
+        .particle:nth-child(13) { width: 9px; height: 9px; background: rgba(0, 0, 0, 0.3); top: 20%; left: 40%; animation-duration: 7s; }
+        .particle:nth-child(14) { width: 15px; height: 15px; background: rgba(0, 0, 0, 0.6); top: 70%; left: 60%; animation-duration: 4.5s; }
+        .particle:nth-child(15) { width: 11px; height: 11px; background: rgba(0, 0, 0, 0.5); top: 80%; left: 30%; animation-duration: 5.5s; }
+        /* Add more particles as needed */
+        
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100vw, 100vh);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            p, .content {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Freedom Wall</h1>
+        <p>Want to post? Register or Login <a href="{{ url_for('home') }}">here</a></p>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <div class="username">{{ post[1] }}</div>
+                    <br>
+                    <div class="content">{{ post[2] }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <!-- Add more particles as needed -->
+    </div>
+</body>
+</html>
