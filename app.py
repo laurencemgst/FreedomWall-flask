@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import random  # Import random module
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a real secret key
+app.secret_key = 'freedomwall123'  # Replace with a real secret key
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
